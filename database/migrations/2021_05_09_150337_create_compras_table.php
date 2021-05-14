@@ -20,7 +20,7 @@ class CreateComprasTable extends Migration
             $table->string('num_comprobante', 10);
             $table->dateTime('fecha_hora');
             $table->decimal('impuesto', 4, 2);
-            $table->decimal('total_compra', 11, 2);
+            $table->decimal('total', 11, 2);
 
             $table->unsignedBigInteger('idproveedor');
             $table->foreign('idproveedor')->references('id')->on('proveedors')->onDelete('cascade');
