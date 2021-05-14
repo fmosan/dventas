@@ -15,7 +15,7 @@ class Compra extends Model
         'num_comprobante',
         'fecha_hora',
         'impuesto',
-        'total_compra',
+        'total',
         'idproveedor',
         'iduser',
     ];
@@ -28,5 +28,11 @@ class Compra extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'iduser');
+    }
+
+    //una compra tiene muchas lineas de pedido
+    public function detalleCompra()
+    {
+        return $this->hasMany(DetalleCompra::class);
     }
 }
