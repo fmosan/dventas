@@ -9,19 +9,21 @@ class DetalleCompra extends Model
 {
     use HasFactory;
 
+    protected $table = 'detalle_compras';
     protected $fillable = [
         'cantidad',
-        'precio_compra',
+        'precio',
         'idcompra',
         'idproducto',
     ];
-    
-    public function productos()
+    public $timestamps = false;
+
+    public function producto()
     {
-        return $this->hasMany('App\Models\Producto');
+        return $this->belongsTo(Producto::class, 'idproducto');
     }
-    public function compras()
+    public function compra()
     {
-        return $this->hasMany('App\Models\Compra');
+        return $this->belongsTo(Compra::class, 'idcompra');
     }
 }

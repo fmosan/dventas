@@ -31,8 +31,8 @@ class Compra extends Model
     }
 
     //una compra tiene muchas lineas de pedido
-    public function detalleCompra()
+    public function detallesCompra()
     {
-        return $this->hasMany(DetalleCompra::class);
+        return $this->hasMany(DetalleCompra::class, 'idcompra', 'id');
     }
 }
