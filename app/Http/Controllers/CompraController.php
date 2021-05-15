@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Compra;
+use App\Models\Producto;
+use App\Models\Proveedor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 class CompraController extends Controller
@@ -26,9 +30,10 @@ class CompraController extends Controller
      */
     public function create()
     {
-        $producto = DB::table('productos')->get();
-
-        return view('compra.create')->with('producto', $producto);
+        //$productos = DB::table('productos')->get();
+        $productos = Producto::all();
+        $proveedores = Proveedor::all();
+        return view('compra.create', compact('productos', 'proveedores'));
     }
 
     /**
@@ -39,6 +44,22 @@ class CompraController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
+        $compra = Compra::create($request->all()+[
+                'iduser' => Auth::user()->id,
+                'fecha_hora' => Carbon::now(),
+            ]);
+        $results = [];
+        foreach ($request->idproducto as $key => $producto){
+            $results[] = array(
+                "idproducto"  => $request->idproducto[$key],
+                "cantidad"    => $request->cantidad[$key],
+                "precio"      => $request->precio[$key]
+            );
+            //dd($results);
+        }
+        $compra->detallesCompra()->createMany($results);
+        return redirect()->route('compra.index');
     }
 
     /**
