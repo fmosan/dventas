@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <a href="detalle_compra/create" class="btn btn-primary mb-3">Crear</a>
+    <a href="{{ route('compra.create') }}" class="btn btn-primary mb-3">Crear</a>
 
     <table id="compras"  class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
         <thead class="bg-primary text-white">
@@ -20,7 +20,6 @@
                 <th scope="col">Numero de Comprobante</th>
                 <th scope="col">Fecha y Hora</th>
                 <th scope="col">Total</th>
-                <th scope="col">Impuesto</th>
             </tr>
         </thead>
         <tbody>
@@ -40,9 +39,7 @@
                         <td>{{$compr->serie_comprobante}}</td>
                         <td>{{$compr->num_comprobante}}</td>
                         <td>{{$compr->fecha_hora}}</td>
-                        <td>{{$compr->total_compra}}</td>
-                        <td>{{$compr->impuesto}}</td>
-
+                        <td>{{$compr->total}}</td>
                     </tr>
                 @endforeach
         </tbody>
